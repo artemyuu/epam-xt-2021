@@ -7,66 +7,66 @@ namespace Task_1._1
     {
         static void Main(string[] args)
         {   
-            Rectangle();
-            Triangle();
-            AnotherTriangle();
+            // Rectangle();
+            // Triangle();
+            // AnotherTriangle();
             XmasTree();
-            Console.WriteLine(SumOfNumbers(1000)); 
-            FontAdjustment(new Dictionary<string, bool>(3) {{"Bold", false}, {"Italic", false}, {"Underline", false}});
-            ArrayProcessing();
-            NoPositive();
-            NonNegativeSum();
-            TwoDArray();
+            // Console.WriteLine(SumOfNumbers(1000)); 
+            // FontAdjustment(new Dictionary<string, bool>(3) {{"Bold", false}, {"Italic", false}, {"Underline", false}});
+            // ArrayProcessing();
+            // NoPositive();
+            // NonNegativeSum();
+            // TwoDArray();
         }
         public static double Rectangle(){
-            try{
-                Console.WriteLine("Enter width: ");
-                double a = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("Enter height: ");
-                double b = Convert.ToDouble(Console.ReadLine());
-                if(a > 0 && b > 0){
-                    Console.Write("Sum: {0}", a*b+"\n");
-                    return a*b;
-                }
-                else {
-                    throw new Exception("Args must be grater than 0");
-                }
+            Console.WriteLine("Enter width: ");
+            Double.TryParse(Console.ReadLine(), out double a);
+            Console.WriteLine("Enter height: ");
+            Double.TryParse(Console.ReadLine(), out double b);
+            if(a > 0 && b > 0){
+                Console.Write("Sum: {0}", a*b+"\n");
+                return a*b;
             }
-            catch (Exception e)
-            {
-               Console.WriteLine(e);
-               return 0;
-            }
+            Console.WriteLine("Incorrect input");
+            return 0;
         }
         public static void Triangle(){
-            try{
-                Console.WriteLine("Enter the number of lines: ");
-                int N = Convert.ToInt32(Console.ReadLine());
-                if(N > 0){
-                    for(int i = 1; i < N+1; i++){
-                        for(int j = i; j != 0; j--){
-                            Console.Write('*');
-                        }
-                        Console.WriteLine();
+            Console.WriteLine("Enter the number of lines: ");
+            Int32.TryParse(Console.ReadLine(), out int N);
+            if(N > 0){
+                for(int i = 1; i < N+1; i++){
+                    for(int j = i; j != 0; j--){
+                        Console.Write('*');
                     }
+                    Console.WriteLine();
                 }
-                else {
-                    throw new Exception("Arg must be grater than 0");
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
         }
         public static void AnotherTriangle(){
-            try{
-                Console.WriteLine("Enter the number of lines: ");
-                int N = Convert.ToInt32(Console.ReadLine());
-                if(N > 0){
-                    for(int i = 0; i < N; i++){
+            Console.WriteLine("Enter the number of lines: ");
+            Int32.TryParse(Console.ReadLine(), out int N);
+            if(N > 0){
+                for(int i = 0; i < N; i++){
+                    for(int j = 1; j < N*2; j++){
+                        if(j > ((N*2-1)-(i*2+1))/2 && j <= (((N*2-1)+(i*2+1))/2)){
+                            Console.Write('*');
+                        }
+                        else {
+                            Console.Write(' ');
+                        }
+                    }
+                    Console.WriteLine();
+                }
+            }
+        }
+        public static void XmasTree(){
+            Console.WriteLine("Enter the number of lines: ");
+            Int32.TryParse(Console.ReadLine(), out int N);
+            if(N > 0){
+                for(int k = 1; k < N+1; k++){
+                    for(int i = 0; i < k; i++){
                         for(int j = 1; j < N*2; j++){
-                            if(j > ((N*2-1)-(i*2+1))/2 && j <= (((N*2-1)+(i*2+1))/2)){
+                            if(j > ((N*2-1)-(i*2+1))/2 && j <= ((N*2-1)+(i*2+1))/2){
                                 Console.Write('*');
                             }
                             else {
@@ -76,60 +76,17 @@ namespace Task_1._1
                         Console.WriteLine();
                     }
                 }
-                else {
-                    throw new Exception("Arg must be grater than 0");
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-        public static void XmasTree(){
-            try{
-                Console.WriteLine("Enter the number of lines: ");
-                int N = Convert.ToInt32(Console.ReadLine());
-                if(N > 0){
-                    for(int k = 1; k < N+1; k++){
-                        for(int i = 0; i < k; i++){
-                            for(int j = 1; j < N*2; j++){
-                                if(j > ((N*2-1)-(i*2+1))/2 && j <= ((N*2-1)+(i*2+1))/2){
-                                    Console.Write('*');
-                                }
-                                else {
-                                    Console.Write(' ');
-                                }
-                            }
-                            Console.WriteLine();
-                        }
-                    }
-                }
-                else {
-                    throw new Exception("Arg must be grater than 0");
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
         }
         public static int SumOfNumbers(int n){
-            try{
-                if(n > 0){
+            if(n > 0){
                 n = n-1;
                 int sumMultOfThree = 3*(n/3*(n/3+1)/2); 
                 int sumMultOfFive = 5*(n/5*(n/5+1)/2);
                 int repetitions = 15*(n/15*(n/15+1)/2);
                 return sumMultOfThree + sumMultOfFive - repetitions;
-                }
-                else {
-                    throw new Exception("The entered number is not natural");
-                }
             }
-            catch(Exception e){
-                Console.WriteLine(e);
-                return 0;
-            }
+            return 0;
         }
         public static void FontAdjustment(Dictionary<string,bool> fontParams) { 
             while(true){
@@ -145,18 +102,13 @@ namespace Task_1._1
                     Console.WriteLine("\t"+i+": " + keyList[i-1].ToLower());
                 }
                 Console.WriteLine("\t0: Выход");
-                try{
-                    int choise = Convert.ToInt32(Console.ReadLine());
-                    if(choise == 0) break;
-                    else if(choise > 0 && choise < 4) {
-                        fontParams[keyList[choise-1]] = !fontParams[keyList[choise-1]];
-                    }
-                    else {
-                        Console.WriteLine("Такой опции не существует");
-                    }
+                Int32.TryParse(Console.ReadLine(), out int choise);
+                if(choise == 0) break;
+                else if(choise > 0 && choise < 4) {
+                    fontParams[keyList[choise-1]] = !fontParams[keyList[choise-1]];
                 }
-                catch (Exception e){
-                    Console.WriteLine(e);
+                else {
+                    Console.WriteLine("Такой опции не существует");
                 }
             }
         }
