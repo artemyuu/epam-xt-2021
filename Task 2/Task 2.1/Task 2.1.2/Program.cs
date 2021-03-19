@@ -214,21 +214,21 @@ namespace Task_2._2
         private List<User> _CREATED_USERS = new List<User>();
         private User _currentUser;
         private string[] _MAIN_MENU_TEXT = {
-            "Выбирите действие:",
+            "Выберите действие:",
             "1.Добавить фигуру",
             "2.Вывести фигуры",
             "3.Очистить холст",
             "4.Выход"
         };
         private string[] _USER_MENU_TEXT = {
-            "Выбирите действие:",
+            "Выберите действие:",
             "1.Добавить пользователя",
             "2.Выбрать пользователя",
             "3.Очистить список пользователей",
             "4.Выход"
         };
         private string[] _TYPES_OF_FIGURES_MENU_TEXT = {
-            "Выбирите тип фигуры:",
+            "Выберите тип фигуры:",
             "1.Добавить квадрат",
             "2.Добавить окружность",
             "3.Добавить кольцо",
@@ -320,7 +320,7 @@ namespace Task_2._2
             Console.WriteLine("Квадрат успешно добавлен!");
         }
         private void AddRing(){
-            Console.WriteLine("Введите центра(x,y) круга");
+            Console.WriteLine("Введите координаты центра(x,y) круга");
             Console.WriteLine("X: ");
             Double.TryParse(Console.ReadLine(),out double startX);
             Console.WriteLine("Y: ");
