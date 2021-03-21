@@ -152,7 +152,7 @@ class Map {
     RenderMonsters();
   }
 
-  public void RenderBorder() {
+  private void RenderBorder() {
     for (int y = 0; y < _height; y++) {
       for (int x = 0; x < _width; x++) {
         if (y == 0 || y == _height - 1) _GAME_OBJECTS.Add(new StaticGameObject(x, y, '█'));
@@ -161,18 +161,18 @@ class Map {
     }
   }
 
-  public void RenderPlayer() {
+  private void RenderPlayer() {
     _PLAYER = new Player(_width - 2, _height - 2, '⍺');
     _GAME_OBJECTS.Add(_PLAYER);
   }
 
-  public void RenderCoin() {
+  private void RenderCoin() {
     _GAME_OBJECTS.Add(new Coin(1, 1, '⚬'));
     _GAME_OBJECTS.Add(new Coin(_width - 2, 1, '⚬'));
     _GAME_OBJECTS.Add(new Coin(1, _height - 2, '⚬'));
   }
 
-  public void RenderMonsters() {
+  private void RenderMonsters() {
     Monster m1 = new Monster((_width / 2), 1, 'ⶍ');
     Monster m2 = new Monster((_width / 2), _height - 2, 'ⶍ');
     _GAME_OBJECTS.Add(m1);
@@ -181,7 +181,7 @@ class Map {
     _MONSTERS.Add(m2);
   }
 
-  public void RenderObs() {
+  private void RenderObs() {
     Random rnd = new Random();
     for (int i = 0; i < _COUNT_OBS; i++) {
       int x = rnd.Next(3, _width - 2);
@@ -204,7 +204,7 @@ class Game {
     GameLoop();
   }
 
-  public void CoinCollision() {
+  private void CoinCollision() {
     for (int i = 0; i < _MAP.GameObjects.Count; i++) {
       if ((_MAP.Player.X == _MAP.GameObjects[i].X) && (_MAP.Player.Y == _MAP.GameObjects[i].Y) && (_MAP.GameObjects[i] is Coin)) {
         _MAP.Player.Coin += 1;
@@ -214,7 +214,7 @@ class Game {
     }
   }
 
-  public void MonsterCollision() {
+  private void MonsterCollision() {
     for (int i = 0; i < _MAP.Monsters.Count; i++) {
       if ((_MAP.Player.X == _MAP.Monsters[i].X) && (_MAP.Player.Y == _MAP.Monsters[i].Y)) {
         _MAP.Player.Health -= 1;
@@ -239,7 +239,7 @@ class Game {
     return blockPositions;
   }
 
-  public void MonstersMove() {
+  private void MonstersMove() {
     Random rnd = new Random();
     for (int i = 0; i < _MAP.Monsters.Count; i++) {
       bool changedPosition = false;
@@ -268,7 +268,7 @@ class Game {
     }
   }
 
-  public void PlayerController(ConsoleKeyInfo cki) {
+  private void PlayerController(ConsoleKeyInfo cki) {
     bool[] freeCells = FreeCells(_MAP.Player);
     switch (cki.Key) {
     case ConsoleKey.W:
@@ -298,7 +298,7 @@ class Game {
     CoinCollision();
     MonsterCollision();
   }
-  public void GameLoop() {
+  private void GameLoop() {
     ConsoleKeyInfo cki;
     do {
       while (Console.KeyAvailable == false) {
