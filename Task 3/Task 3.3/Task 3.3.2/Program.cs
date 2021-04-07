@@ -78,7 +78,7 @@ namespace Task_3._3._2
                 if(CheckCharDiapason(Char.ToUpper(str[i]), startCharLatin, endCharLatin)) LatChar = true;
                 if(CheckCharDiapason(str[i], startCharNumber, endCharNumber)) NumChar = true;
             }
-
+            //comment
             if(CyrChar && LatChar && NumChar == false) return false;
             return true;
 
