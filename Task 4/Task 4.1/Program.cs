@@ -43,9 +43,6 @@ namespace Task_4._1
             watcher.Filter = "*.txt";
             watcher.IncludeSubdirectories = true;
             watcher.EnableRaisingEvents = true;
-
-            Console.WriteLine("Press enter to exit.");
-            Console.ReadLine();
         }
 
         public void Backup(string backupDate){
@@ -56,7 +53,6 @@ namespace Task_4._1
 
         private void OnChanged(object sender, FileSystemEventArgs e){
             
-            if (e.ChangeType != WatcherChangeTypes.Changed) return;
             //get Ru date type format
             CultureInfo culture = CultureInfo.CreateSpecificCulture("ru-RU");
             DateTimeFormatInfo dtfi = culture.DateTimeFormat;
