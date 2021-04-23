@@ -1,24 +1,47 @@
 ﻿using System;
 using System.IO;
 using System.Globalization;
+using System.Threading;
 
 namespace Task_4._1
 {
     class Program
     {
-        //args[0] - mode
-        //args[1] - watched folder
-        //args[2] - date
         static void Main(string[] args)
         {
-            var dw = new DirWatcher(args[1]);
-            if(args[0] == "-w"){
-                dw.startWatch();
+            Console.WriteLine("Enter directory");
+            var userDir = Console.ReadLine();
+            var dw = new DirWatcher(userDir);
+            Console.WriteLine("Enter mode:");
+            Console.WriteLine("1: watching");
+            Console.WriteLine("2: backup");
+            int userMode;
+            try {
+                while(true){
+                    if(Int32.TryParse(Console.ReadLine(), out userMode)){
+                        switch(userMode){
+                            case 1: 
+                                Console.WriteLine("Start watcing");
+                                dw.StartWatch();
+                                break;
+                            case 2:
+                                string[] backupFolderName = dw.BackupDirFoldersName();
+                                foreach (var folder in backupFolderName){
+                                    Console.WriteLine(folder);
+                                }
+                                string dateToBackup = Console.ReadLine();
+                                dw.Backup(dateToBackup);
+                                Console.WriteLine("Backup complete");
+                                break;
+                            default:
+                                Console.WriteLine("Invalid option");
+                                break;
+                        }
+                    }
+                    else Console.WriteLine("Invalid option");
+                }
             }
-            if(args[0] == "-b")
-            {
-                dw.Backup(args[2]);
-            }
+            catch(Exception e) {Console.WriteLine(e.Message);}
         }
     }
 
@@ -32,7 +55,7 @@ namespace Task_4._1
             backupDirPath = Dir.Parent.FullName + "backup";
         }
 
-        public void startWatch(){
+        public void StartWatch(){
             using var watcher = new FileSystemWatcher(PathDirToWatch);
 
             watcher.NotifyFilter = NotifyFilters.LastWrite;
@@ -43,6 +66,9 @@ namespace Task_4._1
             watcher.Filter = "*.txt";
             watcher.IncludeSubdirectories = true;
             watcher.EnableRaisingEvents = true;
+            while(true){
+                Thread.Sleep(1);
+            }
         }
 
         public void Backup(string backupDate){
@@ -52,17 +78,26 @@ namespace Task_4._1
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e){
-            
             //get Ru date type format
             CultureInfo culture = CultureInfo.CreateSpecificCulture("ru-RU");
             DateTimeFormatInfo dtfi = culture.DateTimeFormat;
             dtfi.TimeSeparator = ".";
             //
             if(!Directory.Exists(backupDirPath)){
-                Directory.CreateDirectory(backupDirPath);
+                var di = Directory.CreateDirectory(backupDirPath);
+                di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             }
             CopyDir(PathDirToWatch, backupDirPath + "\\" +  DateTime.Now.ToString("G", dtfi));
         }
+
+        public string[] BackupDirFoldersName() {
+            DirectoryInfo[] foldersInfo = new DirectoryInfo(backupDirPath).GetDirectories();
+            string[] preparedNames = new string[foldersInfo.Length];
+            for(int i = 0; i < foldersInfo.Length; i++){
+                preparedNames[i] = foldersInfo[i].ToString().Remove(0, backupDirPath.Length + 1);
+            }
+            return preparedNames;
+        } 
 
         private void CopyDir(string srcDirPath, string destDirPath){
             DirectoryInfo dir = new DirectoryInfo(srcDirPath);
@@ -85,18 +120,6 @@ namespace Task_4._1
             }
         }
 
-        private void OnError(object sender, ErrorEventArgs e) =>
-            PrintException(e.GetException());
-
-        private void PrintException(Exception ex){
-            if (ex != null)
-            {
-                Console.WriteLine($"Message: {ex.Message}");
-                Console.WriteLine("Stacktrace:");
-                Console.WriteLine(ex.StackTrace);
-                Console.WriteLine();
-                PrintException(ex.InnerException);
-            }
-        }
+        private void OnError(object sender, ErrorEventArgs e) => throw e.GetException();
     }
 }
