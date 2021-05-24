@@ -1,0 +1,63 @@
+:root {
+  --form-background: #0690cf;
+  --form-button-background: #ffdf7f;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+form {
+  margin: 10px;
+}
+
+.register__form {
+  width: 400px;
+  background: var(--form-background);
+  color: white;
+  border: 3px solid #0075b2;
+}
+
+.register__form .form__header {
+  padding: 20px 15px;
+  border-bottom: 1px solid white;
+}
+
+.register__form .form__main {
+  padding: 20px 55px 15px 20px;
+}
+
+.register__form .form__main button {
+  padding: 6px 10px;
+  margin: 10px 0;
+  background: var(--form-button-background);
+  border: none;
+}
+
+.register__form .form__main .email__container {
+  display: flex;
+  flex-direction: column;
+  /* padding: 20px 80px 15px 20px; */
+  margin: 5px 0;
+}
+
+.register__form .form__main .email__container input {
+  width: 100%;
+}
+
+.register__form .form__main .password__container {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
+.register__form .form__main .password__container div {
+  display: flex;
+  flex-direction: column;
+}
+
+.register__form .form__main .password__container div input {
+  width: 150px;
+}
