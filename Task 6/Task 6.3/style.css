@@ -1,0 +1,76 @@
+:root {
+  --pointer-background: #88b7d5;
+  --pointer-border: #c2e1f5;
+}
+
+.pointer {
+  width: 100%;
+  background: var(--pointer-background);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 3px solid var(--pointer-border);
+  color: white;
+  margin-top: 50px;
+}
+
+/* .triangle {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 100px solid red;
+  /* position: relative; */
+/* }  */
+
+/* .inner__triangle {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 50px solid blue; */
+/* position: absolute; */
+/* } */
+
+/* .pointer::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translate(-50%);
+  /* background-color: blue; */
+/* }  */
+
+/* .pointer::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translate(-50%);
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-bottom: 35px solid var(--pointer-background);
+} */
+
+.pointer:after,
+.pointer:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  bottom: 100%;
+}
+
+.pointer:after {
+  border-color: transparent transparent #88b7d5 transparent;
+  border-width: 35px;
+}
+
+.pointer:before {
+  border-color: transparent transparent #c2e1f5 transparent;
+  border-width: 39px;
+}
